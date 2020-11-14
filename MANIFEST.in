@@ -2,3 +2,5 @@ include README.md
 recursive-include octoprint_autologin_config/templates *
 recursive-include octoprint_autologin_config/translations *
 recursive-include octoprint_autologin_config/static *
+include versioneer.py
+include octoprint_autologin_config/_version.py

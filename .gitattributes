@@ -1,2 +1,3 @@
 # Auto detect text files and perform LF normalization
 * text=auto
+octoprint_autologin_config/_version.py export-subst
