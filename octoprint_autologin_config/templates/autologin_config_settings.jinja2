@@ -1,0 +1,56 @@
+<h4>{{ _("AutoLoginLocal Configuration") }}</h4>
+
+<div class="alert alert-block">
+    <div class="row-fluid">
+        <p>
+            <i class="fa fa-exclamation-triangle fa-3x pull-left text-error" style="margin-right: 0.5em;"></i>
+            {{ _("<strong>Do not use this if you cannot trust EVERYONE on your local network. </strong>And I really
+            mean everyone. If you ignore this and then someone takes over your OctoPrint instance, installs
+            malware on it and makes your printer print an endless stream of benchies, that's on you.") }}
+        </p>
+    </div>
+</div>
+<!-- TODO What is AutoLoginLocal? Scoop from docs-->
+
+<!-- TODO Limit the form loading to right users -->
+<form class="form-horizontal">
+    <div class="row-fluid">
+        <div class="span4">
+            <label class="pull-right" for="plugin_autologin_config_enable">{{ _("Enable Auto Login Local") }}</label>
+        </div>
+        <div class="span8">
+            <input id="plugin_autologin_config_enable" type="checkbox" data-bind="checked: enabled">
+        </div>
+    </div>
+    <br>
+    <div class="row-fluid">
+        <div class="span4">
+            <label class="pull-right" for="plugin_autologin_config_loginAs">{{ _("Login As:")}}</label>
+        </div>
+        <div class="span8">
+            <!-- TODO this could be a selection of all users available to reduce issues typing -->
+            <input id="plugin_autologin_config_loginAs" type="text" data-bind="value: loginAs">
+        </div>
+    </div>
+    <br>
+    <div class="row-fluid">
+        <div class="span4">
+            <label class="pull-right" for="plugin_autologin_config_localNetworks">{{ _("Local Networks")}}</label>
+        </div>
+        <div class="span8">
+            <input id="plugin_autologin_config_newNetwork" type="text" class="network-input" data- data-bind="value: newLocalNetwork">
+            <button class="btn btn-primary" data-bind="click: addLocalNetwork()"><i class="fa fa-plus"></i></button>
+            <!-- ko foreach: localNetworks() -->
+            <input type="text" class="network-input" data-bind="value: $data"> <button class="btn btn-danger" data-bind="click: $parent.removeLocalNetwork"><i class="fa fa-trash-alt"></i></button>
+            <!-- /ko -->
+        </div>
+    </div>
+</form>
+
+<!-- Footer -->
+<div style="position: absolute; bottom: 10px;">
+<hr>
+<p>
+    AutoLogin Configuration by <a href="https:github.com/cp2004">Charlie Powell</a> | <i class="fa fa-tag text-success"></i> Version {{ plugin_autologin_config_version }} - <em><a href="https://github.com/cp2004/OctoPrint-AutoLoginConfig/releases">Release Notes</a></em>
+</p>
+</div>

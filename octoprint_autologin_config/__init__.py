@@ -1,22 +1,39 @@
 # -*- coding: utf-8 -*-
 from __future__ import absolute_import
 
+import flask
 import octoprint.plugin
+from octoprint.access.permissions import Permissions
 
 from ._version import get_versions
 
 __version__ = get_versions()["version"]
 del get_versions
 
+# API COMMANDS
+SAVE_COMMAND = "save_config"
+
 
 class AutologinConfigPlugin(
+    octoprint.plugin.SettingsPlugin,
     octoprint.plugin.AssetPlugin,
     octoprint.plugin.TemplatePlugin,
+    octoprint.plugin.SimpleApiPlugin,
 ):
 
     # TemplatePlugin mixin
     def get_template_configs(self):
-        return [{"type": "settings", "custom_bindings": False}]
+        return [
+            {
+                "type": "settings",
+                "name": "AutoLogin Configuration",
+                "template": "autologin_config_settings.jinja2",
+                "custom_bindings": True,
+            }
+        ]
+
+    def get_template_vars(self):
+        return {"version": self._plugin_version}
 
     # AssetPlugin mixin
     def get_assets(self):
@@ -24,6 +41,58 @@ class AutologinConfigPlugin(
             "js": ["js/autologin_config.js"],
             "css": ["css/autologin_config.css"],
         }
+
+    # SimpleApiPlugin mixin
+    def get_api_commands(self):
+        return {SAVE_COMMAND: ["enabled", "loginAs", "localNetworks"]}
+
+    def on_api_command(self, command, data):
+        if Permissions.ADMIN.can():
+            if command == SAVE_COMMAND:
+                self.save_autologin_settings(data)
+        else:
+            return flask.abort(403)
+
+        return self.api_response()
+
+    def on_api_get(self, request=None):
+        if Permissions.ADMIN.can():
+            return self.api_response()
+        else:
+            return flask.abort(403)
+
+    def api_response(self):
+        return flask.jsonify(self.get_autologin_settings())
+
+    def get_autologin_settings(self):
+        enabled = self._settings.global_get(["accessControl", "autologinLocal"])
+        login_as = self._settings.global_get(["accessControl", "autologinAs"])
+        local_networks = self._settings.global_get(["accessControl", "localNetworks"])
+        return {
+            "enabled": enabled,
+            "loginAs": login_as,
+            "localNetworks": local_networks,
+        }
+
+    def save_autologin_settings(self, data):
+        self._logger.info(data)
+        self._logger.info("Autologin settings saving")
+        self._settings.global_set(
+            ["accessControl", "autologinLocal"],
+            data.get("enabled"),
+            force=True,
+        )
+        self._settings.global_set(
+            ["accessControl", "autologinAs"],
+            data.get("loginAs"),
+            force=True,
+        )
+        self._settings.global_set(
+            ["accessControl", "localNetworks"],
+            data.get("localNetworks"),
+            force=True,
+        )
+        self._logger.info("Autologin settings saved")
 
     # Softwareupdate hook
     def get_update_information(self):
@@ -54,7 +123,7 @@ class AutologinConfigPlugin(
         }
 
 
-__plugin_name__ = "Autologin_config Plugin"
+__plugin_name__ = "Autologin Configuration"
 __plugin_version__ = __version__
 __plugin_pythoncompat__ = ">=2.7,<4"  # python 2 and 3
 

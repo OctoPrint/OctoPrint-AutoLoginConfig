@@ -7,13 +7,83 @@
 $(function () {
     function Autologin_configViewModel(parameters) {
         var self = this;
-        self.settingsViewModel = parameters[1];
+        console.log(parameters);
+        self.settingsViewModel = parameters[0];
+        self.accessViewModel = parameters[1];
+        self.loginState = parameters[2];
+
+        // Initialise observables
+        self.enabled = ko.observable(false);
+        self.loginAs = ko.observable();
+        self.localNetworks = ko.observableArray([]);
+        self.newLocalNetwork = ko.observable();
+
+        self.addLocalNetwork = function () {
+            if (!self.check_admin()) {
+                return;
+            }
+            self.localNetworks.unshift(self.newLocalNetwork());
+            self.newLocalNetwork("");
+        };
+
+        self.removeLocalNetwork = function (network) {
+            if (!self.check_admin()) {
+                return;
+            }
+
+            self.localNetworks.remove(network);
+        };
+
+        self.check_admin = function () {
+            return self.loginState.hasPermission(
+                self.accessViewModel.permissions.ADMIN
+            );
+        };
+
+        self.onSettingsBeforeSave = function () {
+            if (!self.check_admin()) {
+                return;
+            }
+
+            OctoPrint.simpleApiCommand("autologin_config", "save_config", {
+                enabled: self.enabled(),
+                loginAs: self.loginAs(),
+                localNetworks: self.localNetworks(),
+            }).done(self.on_api_repsonse);
+        };
+
+        self.onAllBound = function () {
+            OctoPrint.simpleApiGet("autologin_config").done(
+                self.on_api_repsonse
+            );
+            // Setup error popover
+            $("#plugin_autologin_config_newNetwork").popover({
+                content: "Address is already in the list!",
+            });
+        };
+
+        self.on_api_repsonse = function (response) {
+            // TODO Check status code, to ensure it succeeded
+            // Permissions checks may have failed - HTTP 403 returned
+            if (response.enabled) {
+                self.enabled(true);
+            }
+            if (response.loginAs) {
+                self.loginAs(response.loginAs);
+            }
+            if (response.localNetworks) {
+                self.localNetworks(response.localNetworks);
+            }
+        };
     }
 
     OCTOPRINT_VIEWMODELS.push({
         construct: Autologin_configViewModel,
-        dependencies: [],
-        // Elements to bind to, e.g. #settings_plugin_autologin_config, #tab_plugin_autologin_config, ...
-        elements: [""],
+        dependencies: [
+            "settingsViewModel",
+            "accessViewModel",
+            "loginStateViewModel",
+        ],
+        elements: ["#settings_plugin_autologin_config"],
     });
 });
