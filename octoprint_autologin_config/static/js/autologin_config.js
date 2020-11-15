@@ -62,7 +62,6 @@ $(function () {
                 _.each(response.users, function (user) {
                     self.allUsers.push(user.name);
                 });
-                console.log(response);
             });
         };
 
