@@ -54,8 +54,8 @@
         </div>
         <div class="span8">
             <div class="input-append">
-                <input id="plugin_autologin_config_newNetwork" placeholder="Add a new range..." type="text" class="network-input" data- data-bind="value: newLocalNetwork">
-                <button class="btn btn-primary" data-bind="click: addLocalNetwork()"><i class="fa fa-plus"></i></button>
+                <input id="plugin_autologin_config_newNetwork" type="text" class="network-input" placeholder="Add a new range..." data-bind="textInput: newLocalNetwork, css: {error: (!newLocalNetworkIsValid() && newLocalNetwork() !== '')}">
+                <button class="btn btn-primary" data-bind="click: addLocalNetwork(), enable: newLocalNetworkIsValid()"><i class="fa fa-plus"></i></button>
             </div>
             <!-- ko foreach: localNetworks() -->
             <div class="input-append">

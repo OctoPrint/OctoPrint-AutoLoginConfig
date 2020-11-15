@@ -1,3 +1,7 @@
 #settings_plugin_autologin_config .network-input {
     margin-bottom: 5px;
 }
+
+#settings_plugin_autologin_config .network-input.error {
+    border-color: #FF0000;
+}
