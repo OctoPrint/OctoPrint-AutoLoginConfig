@@ -4,14 +4,31 @@
     <div class="row-fluid">
         <p>
             <i class="fa fa-exclamation-triangle fa-3x pull-left text-error" style="margin-right: 0.5em;"></i>
-            {{ _("<strong>Do not use this if you cannot trust EVERYONE on your local network. </strong>And I really
+            {{ _("<strong>Do not use this if you cannot trust EVERYONE on your local network.</strong> And I really
             mean everyone. If you ignore this and then someone takes over your OctoPrint instance, installs
             malware on it and makes your printer print an endless stream of benchies, that's on you.") }}
         </p>
     </div>
 </div>
-<!-- TODO What is AutoLoginLocal? Scoop from docs-->
-
+<p>AutoLoginLocal allows OctoPrint to automatically log you in, if you are connecting from a trusted local network address.</p>
+<p>To configure it, you need to know or collect some information:</p>
+<ul>
+    <li>The user you want to be automatically logged in as</li>
+    <li>The ip address range of your LAN in
+        <a href="https://www.digitalocean.com/community/tutorials/understanding-ip-addresses-subnets-and-cidr-notation-for-networking#cidr-notation" target="_blank">
+            CIDR notation
+        </a> - sounds scary, but actually isn't. Here's an easy lookup table that should apply to most residential LANs
+        out there, just <a href="https://lifehacker.com/how-to-find-your-local-and-external-ip-address-5833108" target="_blank">check your PC's IP address</a> against it:
+        <ul style="margin-top: 1em; margin-bottom: 1em;">
+            <li>IP starts with 10.: range 10.0.0.0/8</li>
+            <li>IP starts with 172.16., 172.17., ..., 172.31.: range 172.16.0.0/12</li>
+            <li>IP starts with 192.168.x. (for an x between 0 and 255): range 192.168.x.0/24 (e.g. 192.168.1.102 => 192.168.1.0/24)</li>
+        </ul>
+        If you have a different local address range than what's listed here, get in touch with whoever administrates
+        your network to find out the local IP range. This will be what you put where it says 'Local Networks' below.</li>
+</ul>
+<hr>
+<h5>Configuration</h5>
 <!-- TODO Limit the form loading to right users -->
 <form class="form-horizontal">
     <div class="row-fluid">
@@ -47,9 +64,9 @@
 </form>
 
 <!-- Footer -->
-<div style="position: absolute; bottom: 10px;">
+<div>
 <hr>
 <p>
-    AutoLogin Configuration by <a href="https:github.com/cp2004">Charlie Powell</a> | <i class="fa fa-tag text-success"></i> Version {{ plugin_autologin_config_version }} - <em><a href="https://github.com/cp2004/OctoPrint-AutoLoginConfig/releases">Release Notes</a></em>
+    AutoLogin Configuration by <a href="https:github.com/cp2004">Charlie Powell</a> | <i class="fa fa-tag text-success"></i> Version {{ plugin_autologin_config_version }} - <em><a href="https://github.com/cp2004/OctoPrint-AutoLoginConfig/releases" target="_blank">Release Notes</a></em>
 </p>
 </div>
