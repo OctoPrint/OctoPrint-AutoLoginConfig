@@ -28,8 +28,7 @@
         your network to find out the local IP range. This will be what you put where it says 'Local Networks' below.</li>
 </ul>
 <hr>
-<h5>Configuration</h5>
-<!-- TODO Limit the form loading to right users -->
+<h5>{{ _("Configuration") }}</h5>
 <form class="form-horizontal" data-bind="visible: loginState.hasPermission(accessViewModel.permissions.ADMIN)">
     <div class="row-fluid">
         <div class="span4">
@@ -55,7 +54,7 @@
         </div>
         <div class="span8">
             <div class="input-append">
-                <input id="plugin_autologin_config_newNetwork" type="text" class="network-input" data- data-bind="value: newLocalNetwork">
+                <input id="plugin_autologin_config_newNetwork" placeholder="Add a new range..." type="text" class="network-input" data- data-bind="value: newLocalNetwork">
                 <button class="btn btn-primary" data-bind="click: addLocalNetwork()"><i class="fa fa-plus"></i></button>
             </div>
             <!-- ko foreach: localNetworks() -->
@@ -77,6 +76,6 @@
 <div>
 <hr>
 <p>
-    AutoLogin Configuration by <a href="https:github.com/cp2004">Charlie Powell</a> | <i class="fa fa-tag text-success"></i> Version {{ plugin_autologin_config_version }} - <em><a href="https://github.com/cp2004/OctoPrint-AutoLoginConfig/releases" target="_blank">Release Notes</a></em>
+    AutoLogin Configuration by <a href="https:github.com/cp2004">Charlie Powell</a> | <i class="fa fa-tag text-success"></i> Version {{ plugin_autologin_config_version }} - <a href="https://github.com/cp2004/OctoPrint-AutoLoginConfig/releases" target="_blank">Release Notes</a>
 </p>
 </div>

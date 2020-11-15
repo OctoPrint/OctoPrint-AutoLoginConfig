@@ -55,9 +55,11 @@ $(function () {
         };
 
         self.onAllBound = function () {
-            OctoPrint.simpleApiGet("autologin_config").done(
-                self.on_api_repsonse
-            );
+            if (self.check_admin()) {
+                OctoPrint.simpleApiGet("autologin_config").done(
+                    self.on_api_repsonse
+                );
+            }
             OctoPrint.access.users.list().done(function (response) {
                 _.each(response.users, function (user) {
                     self.allUsers.push(user.name);
@@ -66,8 +68,6 @@ $(function () {
         };
 
         self.on_api_repsonse = function (response) {
-            // TODO Check status code, to ensure it succeeded
-            // Permissions checks may have failed - HTTP 403 returned
             if (response.enabled) {
                 self.enabled(true);
             }
