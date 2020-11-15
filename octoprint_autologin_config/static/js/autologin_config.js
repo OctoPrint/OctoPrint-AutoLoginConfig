@@ -16,7 +16,9 @@ $(function () {
         self.enabled = ko.observable(false);
         self.loginAs = ko.observable();
         self.localNetworks = ko.observableArray([]);
+
         self.newLocalNetwork = ko.observable();
+        self.allUsers = ko.observableArray([]);
 
         self.addLocalNetwork = function () {
             if (!self.check_admin()) {
@@ -56,9 +58,11 @@ $(function () {
             OctoPrint.simpleApiGet("autologin_config").done(
                 self.on_api_repsonse
             );
-            // Setup error popover
-            $("#plugin_autologin_config_newNetwork").popover({
-                content: "Address is already in the list!",
+            OctoPrint.access.users.list().done(function (response) {
+                _.each(response.users, function (user) {
+                    self.allUsers.push(user.name);
+                });
+                console.log(response);
             });
         };
 

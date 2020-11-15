@@ -28,8 +28,7 @@
             <label class="pull-right" for="plugin_autologin_config_loginAs">{{ _("Login As:")}}</label>
         </div>
         <div class="span8">
-            <!-- TODO this could be a selection of all users available to reduce issues typing -->
-            <input id="plugin_autologin_config_loginAs" type="text" data-bind="value: loginAs">
+            <select data-bind="options: allUsers, value: loginAs"></select>
         </div>
     </div>
     <br>
