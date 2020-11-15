@@ -17,13 +17,24 @@ $(function () {
         self.loginAs = ko.observable();
         self.localNetworks = ko.observableArray([]);
 
-        self.newLocalNetwork = ko.observable('');
-        self.newLocalNetworkIsValid = ko.computed(function(){
-            var filtered_networks = ko.utils.arrayFilter(self.localNetworks(), function(item) {
-                return item === self.newLocalNetwork();
-            });
-            return filtered_networks.length === 0 && (self.newLocalNetwork().match(/^(([0-9]|[1-9][0-9]|1[0-9]{2}|2[0-4][0-9]|25[0-5])\.){3}([0-9]|[1-9][0-9]|1[0-9]{2}|2[0-4][0-9]|25[0-5])(\/(3[0-2]|[1-2][0-9]|[0-9]))?$/));
-        })
+        self.newLocalNetwork = ko.observable("");
+        self.newLocalNetworkIsValid = ko.computed(function () {
+            var filtered_networks = ko.utils.arrayFilter(
+                self.localNetworks(),
+                function (item) {
+                    return item === self.newLocalNetwork();
+                }
+            );
+            return (
+                filtered_networks.length === 0 &&
+                self
+                    .newLocalNetwork()
+                    .match(
+                        /^(([0-9]|[1-9][0-9]|1[0-9]{2}|2[0-4][0-9]|25[0-5])\.){3}([0-9]|[1-9][0-9]|1[0-9]{2}|2[0-4][0-9]|25[0-5])(\/(3[0-2]|[1-2][0-9]|[0-9]))?$/
+                    )
+            );
+            // TODO verify if single IP addresses work in the field
+        });
         self.allUsers = ko.observableArray([]);
 
         self.addLocalNetwork = function () {
