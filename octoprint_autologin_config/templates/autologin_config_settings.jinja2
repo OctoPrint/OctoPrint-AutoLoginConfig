@@ -59,7 +59,7 @@
             </div>
             <!-- ko foreach: localNetworks() -->
             <div class="input-append">
-                <input type="text" class="network-input" data-bind="value: $data">
+                <input type="text" class="network-input" data-bind="value: $rawData">
                 <button class="btn btn-danger" data-bind="click: $parent.removeLocalNetwork"><i class="fa fa-trash-alt"></i></button>
             </div>
             <!-- /ko -->

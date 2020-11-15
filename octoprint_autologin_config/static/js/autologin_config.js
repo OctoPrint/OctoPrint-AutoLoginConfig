@@ -63,11 +63,14 @@ $(function () {
             if (!self.check_admin()) {
                 return;
             }
-
+            var localNetworksArray = [];
+            _.each(self.localNetworks(), function (network) {
+                localNetworksArray.push(network());
+            });
             OctoPrint.simpleApiCommand("autologin_config", "save_config", {
                 enabled: self.enabled(),
                 loginAs: self.loginAs(),
-                localNetworks: self.localNetworks(),
+                localNetworks: localNetworksArray,
             }).done(self.on_api_repsonse);
         };
 
@@ -92,7 +95,10 @@ $(function () {
                 self.loginAs(response.loginAs);
             }
             if (response.localNetworks) {
-                self.localNetworks(response.localNetworks);
+                self.localNetworks([]);
+                _.each(response.localNetworks, function (network) {
+                    self.localNetworks.push(ko.observable(network));
+                });
             }
         };
     }
