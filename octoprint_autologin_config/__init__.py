@@ -75,8 +75,6 @@ class AutologinConfigPlugin(
         }
 
     def save_autologin_settings(self, data):
-        self._logger.info(data)
-        self._logger.info("Autologin settings saving")
         self._settings.global_set(
             ["accessControl", "autologinLocal"],
             data.get("enabled"),
