@@ -54,10 +54,15 @@
             <label class="pull-right" for="plugin_autologin_config_localNetworks">{{ _("Local Networks")}}</label>
         </div>
         <div class="span8">
-            <input id="plugin_autologin_config_newNetwork" type="text" class="network-input" data- data-bind="value: newLocalNetwork">
-            <button class="btn btn-primary" data-bind="click: addLocalNetwork()"><i class="fa fa-plus"></i></button>
+            <div class="input-append">
+                <input id="plugin_autologin_config_newNetwork" type="text" class="network-input" data- data-bind="value: newLocalNetwork">
+                <button class="btn btn-primary" data-bind="click: addLocalNetwork()"><i class="fa fa-plus"></i></button>
+            </div>
             <!-- ko foreach: localNetworks() -->
-            <input type="text" class="network-input" data-bind="value: $data"> <button class="btn btn-danger" data-bind="click: $parent.removeLocalNetwork"><i class="fa fa-trash-alt"></i></button>
+            <div class="input-append">
+                <input type="text" class="network-input" data-bind="value: $data">
+                <button class="btn btn-danger" data-bind="click: $parent.removeLocalNetwork"><i class="fa fa-trash-alt"></i></button>
+            </div>
             <!-- /ko -->
         </div>
     </div>
