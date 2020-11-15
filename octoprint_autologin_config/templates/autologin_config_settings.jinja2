@@ -30,7 +30,7 @@
 <hr>
 <h5>Configuration</h5>
 <!-- TODO Limit the form loading to right users -->
-<form class="form-horizontal">
+<form class="form-horizontal" data-bind="visible: loginState.hasPermission(accessViewModel.permissions.ADMIN)">
     <div class="row-fluid">
         <div class="span4">
             <label class="pull-right" for="plugin_autologin_config_enable">{{ _("Enable Auto Login Local") }}</label>
@@ -62,6 +62,11 @@
         </div>
     </div>
 </form>
+<div class="alert alert-block" data-bind="visible: !loginState.hasPermission(accessViewModel.permissions.ADMIN)">
+    <i class="fa fa-user-times text-error fa-3x pull-left" style="margin-right: 0.5em;"></i>
+    <p>{{ _("It looks like your user account does not have the correct permissions to enable this feature.") }}</p>
+    <p>{{ _("You need to ask the administrator of this instance to enable it for you.")}}</p>
+</div>
 
 <!-- Footer -->
 <div>
