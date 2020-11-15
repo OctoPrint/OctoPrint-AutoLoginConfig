@@ -17,7 +17,7 @@ $(function () {
         self.loginAs = ko.observable();
         self.localNetworks = ko.observableArray([]);
 
-        self.newLocalNetwork = ko.observable();
+        self.newLocalNetwork = ko.observable('');
         self.allUsers = ko.observableArray([]);
 
         self.addLocalNetwork = function () {
