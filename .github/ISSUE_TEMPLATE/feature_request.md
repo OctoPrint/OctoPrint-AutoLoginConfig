@@ -2,9 +2,8 @@
 name: Feature request
 about: Thought of a cool feature? Use this template.
 title: "[Request]"
-labels: ''
-assignees: ''
-
+labels: ""
+assignees: ""
 ---
 
 **Is your feature request related to a problem? Please describe.**
