@@ -17,6 +17,8 @@ $(function () {
         self.loginAs = ko.observable();
         self.localNetworks = ko.observableArray([]);
 
+        self.addressValidationRegex = /^(([0-9]|[1-9][0-9]|1[0-9]{2}|2[0-4][0-9]|25[0-5])\.){3}([0-9]|[1-9][0-9]|1[0-9]{2}|2[0-4][0-9]|25[0-5])\/((3[0-2]|[1-2][0-9]|[0-9])|(((255\.){3}(255|254|252|248|240|224|192|128|0+))|((255\.){2}(255|254|252|248|240|224|192|128|0+)\.0)|((255\.)(255|254|252|248|240|224|192|128|0+)(\.0+){2})|((255|254|252|248|240|224|192|128|0+)(\.0+){3})))$/;
+
         self.newLocalNetwork = ko.observable("");
         self.newLocalNetworkIsValid = ko.computed(function () {
             var filtered_networks = ko.utils.arrayFilter(
@@ -27,11 +29,7 @@ $(function () {
             );
             return (
                 filtered_networks.length === 0 &&
-                self
-                    .newLocalNetwork()
-                    .match(
-                        /^(([0-9]|[1-9][0-9]|1[0-9]{2}|2[0-4][0-9]|25[0-5])\.){3}([0-9]|[1-9][0-9]|1[0-9]{2}|2[0-4][0-9]|25[0-5])(\/(3[0-2]|[1-2][0-9]|[0-9]))$/
-                    )
+                self.addressValidationRegex.test(self.newLocalNetwork())
             );
             // TODO verify if single IP addresses work in the field
         });
@@ -41,7 +39,6 @@ $(function () {
             if (!self.check_admin()) {
                 return;
             }
-            self.localNetworks.unshift(self.newLocalNetwork());
             self.localNetworks.unshift(ko.observable(self.newLocalNetwork()));
             self.newLocalNetwork("");
         };
