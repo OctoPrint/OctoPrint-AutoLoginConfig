@@ -42,6 +42,7 @@ $(function () {
                 return;
             }
             self.localNetworks.unshift(self.newLocalNetwork());
+            self.localNetworks.unshift(ko.observable(self.newLocalNetwork()));
             self.newLocalNetwork("");
         };
 
