@@ -100,12 +100,12 @@ class AutologinConfigPlugin(
                 "displayVersion": self._plugin_version,
                 # version check: github repository
                 "type": "github_release",
-                "user": "cp2004",
+                "user": "OctoPrint",
                 "repo": "OctoPrint-AutoLoginConfig",
                 "current": self._plugin_version,
                 "stable_branch": {
                     "name": "Stable",
-                    "branch": "master",
+                    "branch": "main",
                     "comittish": ["main"],
                 },
                 "prerelease_branches": [
@@ -116,7 +116,7 @@ class AutologinConfigPlugin(
                     }
                 ],
                 # update method: pip
-                "pip": "https://github.com/cp2004/OctoPrint-AutoLoginConfig/archive/{target_version}.zip",
+                "pip": "https://github.com/OctoPrint/OctoPrint-AutoLoginConfig/archive/{target_version}.zip",
             }
         }
 
