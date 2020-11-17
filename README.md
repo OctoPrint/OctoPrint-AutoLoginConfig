@@ -44,6 +44,6 @@ _AutoLoginLocal Configuration by Charlie Powell and [contributors](https://githu
 
 ## Images
 
-[!Instructions](assets/instructions.png)
+[!Instructions](/assets/instructions.png)
 
-[!UI](assets/config.png)
+[!UI](/assets/config.png)
