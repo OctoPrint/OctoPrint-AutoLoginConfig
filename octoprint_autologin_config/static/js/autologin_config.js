@@ -18,6 +18,7 @@ $(function () {
         self.localNetworks = ko.observableArray([]);
 
         self.addressValidationRegex = /^(([0-9]|[1-9][0-9]|1[0-9]{2}|2[0-4][0-9]|25[0-5])\.){3}([0-9]|[1-9][0-9]|1[0-9]{2}|2[0-4][0-9]|25[0-5])\/((3[0-2]|[1-2][0-9]|[0-9])|(((255\.){3}(255|254|252|248|240|224|192|128|0+))|((255\.){2}(255|254|252|248|240|224|192|128|0+)\.0)|((255\.)(255|254|252|248|240|224|192|128|0+)(\.0+){2})|((255|254|252|248|240|224|192|128|0+)(\.0+){3})))$/;
+        self.ipv6ValidationRegex = /(FE80::\/64)$/;
 
         self.newLocalNetwork = ko.observable("");
         self.newLocalNetworkIsValid = ko.computed(function () {
@@ -29,9 +30,9 @@ $(function () {
             );
             return (
                 filtered_networks.length === 0 &&
-                self.addressValidationRegex.test(self.newLocalNetwork())
+                (self.addressValidationRegex.test(self.newLocalNetwork()) ||
+                    self.ipv6ValidationRegex.test(self.newLocalNetwork()))
             );
-            // TODO verify if single IP addresses work in the field
         });
         self.allUsers = ko.observableArray([]);
 
