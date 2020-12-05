@@ -17,8 +17,8 @@ rc/.*
 HEAD
 \(detached.*
 
-# devel is currently the branch for work towards 0.1.0
-devel 0.1.0 39dd06756f8d8665243e241030fc9eb692cbcd3a pep440-dev
+# devel is currently the branch for work towards 0.2.0
+devel 0.2.0 1ca087cc8fa88e985b9a2f418cf16d017801636f pep440-dev
 
-# Every other branch is also development, so is resolved to 0.1.0 as well for now
-.* 0.1.0 39dd06756f8d8665243e241030fc9eb692cbcd3a pep440-dev
+# Every other branch is also development, so is resolved to 0.2.0 as well for now
+.* 0.2.0 1ca087cc8fa88e985b9a2f418cf16d017801636f pep440-dev
