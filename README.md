@@ -25,7 +25,7 @@ Allows for UI configuration of AutoLoginLocal - an OctoPrint feature that automa
 
 <div class="row-fluid">
 <div class="span3">
-<a href="https://www.jetbrains.com/?from=cp2004"><img align="left" width="100" height="100" src="/assets/jetbrains-variant-2.png" alt="JetBrains Logo"></a>
+<a href="https://www.jetbrains.com/?from=cp2004"><img align="left" width="100" height="100" src="assets/jetbrains-variant-2.png" alt="JetBrains Logo"></a>
 </div>
 <div class="span9">
 <p>
@@ -44,6 +44,6 @@ _AutoLoginLocal Configuration by Charlie Powell and [contributors](https://githu
 
 ## Images
 
-[!Instructions](/assets/instructions.png)
+![](assets/instructions.png)
 
-[!UI](/assets/config.png)
+![](assets/config.png)
