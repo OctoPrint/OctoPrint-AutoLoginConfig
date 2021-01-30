@@ -21,6 +21,8 @@ Allows for UI configuration of AutoLoginLocal - an OctoPrint feature that automa
 - on the [Issue Tracker](https://github.com/OctoPrint/OctoPrint-AutologinLocal/issues)
 - on the [OctoPrint discord](https://discord.octoprint.org)
 
+**This plugin is not under active development, as there is little need, but it is not abandoned.**
+
 ### Support my work with OctoPrint
 
 <div class="row-fluid">
