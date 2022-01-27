@@ -7,7 +7,6 @@
 $(function () {
     function Autologin_configViewModel(parameters) {
         var self = this;
-        console.log(parameters);
         self.settingsViewModel = parameters[0];
         self.accessViewModel = parameters[1];
         self.loginState = parameters[2];
