@@ -44,7 +44,7 @@
             <label class="pull-right" for="plugin_autologin_config_loginAs">{{ _("Login As:")}}</label>
         </div>
         <div class="span8">
-            <select data-bind="options: allUsers, value: loginAs"></select>
+            <select id="plugin_autologin_config_loginAs" data-bind="options: allUsers, value: loginAs, valueAllowUnset: true"></select>
         </div>
     </div>
     <br>
